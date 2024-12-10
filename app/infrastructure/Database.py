@@ -7,7 +7,7 @@ from ..core.Config import get_environment_variables
 env = get_environment_variables()
 
 # URL do banco de dados assíncrono
-ASYNC_DATABASE_URL = f"{env.DB_DIALECT}://{env.DB_USERNAME}:{env.DB_PASSWORD}@{env.DB_HOST}:{env.DB_PORT}/{env.DB_NAME}"
+ASYNC_DATABASE_URL = env.ASYNC_DATABASE_URL
 
 # Configurar o motor assíncrono
 async_engine = create_async_engine(ASYNC_DATABASE_URL, echo=env.DEBUG_MODE)

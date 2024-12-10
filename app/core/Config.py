@@ -2,17 +2,13 @@ import os
 from pydantic_settings import BaseSettings
 
 def get_env_filename():
-    return os.environ.get("ENV_FILE")
+    # Define um arquivo padrão para ambiente local
+    return os.environ.get("ENV_FILE", ".env.local")
 
 class EnvironmentSettings(BaseSettings):
     APP_NAME: str
     API_VERSION: str
-    DB_DIALECT: str
-    DB_USERNAME: str
-    DB_PASSWORD: str
-    DB_HOST: str
-    DB_PORT: int
-    DB_NAME: str
+    ASYNC_DATABASE_URL: str
     DEBUG_MODE: bool
     JWT_SECRET: str
     JWT_ALGORITHM: str
@@ -21,5 +17,10 @@ class EnvironmentSettings(BaseSettings):
     class Config:
         env_file = get_env_filename()
 
+def get_database_url(env: EnvironmentSettings) -> str:
+    # Apenas retorna a DATABASE_URL já existente
+    return env.ASYNC_DATABASE_URL
+
 def get_environment_variables():
-    return EnvironmentSettings()
+    env = EnvironmentSettings()
+    return env
